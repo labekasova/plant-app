@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" role="img" aria-label="Succulent">
+  <g stroke="#11130d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#f18a42" d="M48 108c-1-18 4-31 12-39l11 8c-3 5-4 11-2 17 2 7-2 15-10 18z"/>
+    <path fill="none" d="M58 84c0-21-2-35-8-48"/>
+    <path fill="#a8d91f" d="M51 40C39 23 21 22 11 25c6 17 20 26 40 22z"/>
+    <path fill="#c0e52b" d="M56 57c9-19 26-23 40-18-5 18-18 27-38 25z"/>
+  </g>
+  <path d="M19 30c10 3 19 7 28 14M87 44c-10 3-19 8-27 15" fill="none" stroke="#5b9909" stroke-width="4" stroke-linecap="round"/>
+</svg>

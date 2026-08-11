@@ -1,0 +1,10 @@
+{
+  "name": "Мой сад",
+  "short_name": "Мой сад",
+  "description": "Уютный трекер полива домашних растений",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
+}

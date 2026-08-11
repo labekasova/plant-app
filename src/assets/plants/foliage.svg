@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" role="img" aria-label="Foliage plant">
+  <path d="M23 108C34 82 51 57 78 25" fill="none" stroke="#10150c" stroke-width="10" stroke-linecap="round"/>
+  <path d="M23 108C34 82 51 57 78 25" fill="none" stroke="#90d10a" stroke-width="5" stroke-linecap="round"/>
+  <g stroke="#11130d" stroke-width="6" stroke-linejoin="round">
+    <path fill="#25a916" d="M61 50c1-20 13-31 32-31-1 18-12 30-32 31z"/>
+    <path fill="#5fc913" d="M48 67c-15-13-29-13-43-2 11 14 25 17 43 8z"/>
+    <path fill="#36b317" d="M40 82c-16-8-28-4-37 10 14 10 27 8 41-4z"/>
+    <path fill="#70ce0e" d="M51 64c-1-18 8-30 25-35 4 16-4 29-25 35z"/>
+    <path fill="#93d514" d="M31 91c-13-5-23-1-29 11 13 7 23 5 32-5z"/>
+  </g>
+  <g fill="none" stroke="#c3ef25" stroke-width="3" stroke-linecap="round">
+    <path d="M66 43l18-17M18 67l22 3M12 92l23-5M57 55l13-17"/>
+  </g>
+</svg>

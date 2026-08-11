@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" role="img" aria-label="Cactus">
+  <g stroke="#11130d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#83d807" d="M42 110V42c0-15 7-25 17-25s17 10 17 25v18c2 2 4 1 5-2V45c0-7 4-12 9-12s8 5 8 12v18c0 12-8 22-22 24v23H42z"/>
+    <path fill="#6acb06" d="M43 82c-17-2-27-12-27-26V44c0-7 4-12 9-12s9 5 9 12v9c0 4 3 7 9 8"/>
+  </g>
+  <g fill="#1eaa0d">
+    <ellipse cx="54" cy="35" rx="3" ry="8"/><ellipse cx="66" cy="47" rx="3" ry="7"/>
+    <ellipse cx="53" cy="62" rx="3" ry="7"/><ellipse cx="66" cy="76" rx="3" ry="8"/>
+    <ellipse cx="54" cy="91" rx="3" ry="8"/><ellipse cx="86" cy="51" rx="2.5" ry="6"/>
+    <ellipse cx="27" cy="49" rx="2.5" ry="6"/><ellipse cx="31" cy="68" rx="2.5" ry="6"/>
+  </g>
+  <g stroke="#fff56a" stroke-width="2.5" stroke-linecap="round" opacity=".9">
+    <path d="M48 31h-5m10 15h-5m22 14h6m-20 15h-5m15 16h6M26 58h-5m64 9h6"/>
+  </g>
+</svg>
