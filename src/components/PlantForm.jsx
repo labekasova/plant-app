@@ -1,16 +1,14 @@
 import { useState } from 'react'
 import { plantTypes } from '../data/plantTypes.js'
 
-const initialForm = {
-  name: '',
-  type: 'succulent',
-  waterIntervalDays: 3,
-  location: 'indoor',
-  notes: '',
-}
-
-export function PlantForm({ t, onSubmit }) {
-  const [form, setForm] = useState(initialForm)
+export function PlantForm({ t, initialLocation = 'indoor', onSubmit }) {
+  const [form, setForm] = useState(() => ({
+    name: '',
+    type: 'succulent',
+    waterIntervalDays: 3,
+    location: initialLocation,
+    notes: '',
+  }))
 
   const update = (field, value) => {
     setForm((current) => ({ ...current, [field]: value }))

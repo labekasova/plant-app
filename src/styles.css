@@ -43,7 +43,7 @@ button {
   position: relative;
   isolation: isolate;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
   padding: 22px 16px 104px;
   background-color: #fff;
   background-image: radial-gradient(circle, #62aaf7 1.25px, transparent 1.4px);
@@ -1144,4 +1144,394 @@ html[data-theme=dark] ::-webkit-scrollbar-thumb { border-color: #1b1b17; backgro
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* v0.3: expandable indoor and outdoor rooms */
+.garden-header {
+  margin-bottom: 28px;
+}
+
+.garden-zones {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: min(1040px, calc(100vw - 32px));
+  margin: 0 auto;
+  gap: 34px;
+}
+
+.garden-zone {
+  overflow: hidden;
+  border: 3px solid rgba(102, 62, 30, 0.28);
+  border-radius: 24px;
+  box-shadow: 0 14px 32px rgba(75, 38, 12, 0.13);
+}
+
+.garden-zone__header {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 13px;
+  min-height: 78px;
+  padding: 13px 20px;
+  border-bottom: 3px solid rgba(100, 61, 27, 0.24);
+}
+
+.garden-zone--indoor .garden-zone__header {
+  background: linear-gradient(100deg, #f4dcb7, #fff5dc);
+}
+
+.garden-zone--outdoor .garden-zone__header {
+  background: linear-gradient(100deg, #cceba7, #eef5bd);
+}
+
+.garden-zone__icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 2px solid rgba(92, 48, 17, 0.19);
+  border-radius: 14px;
+  color: #71360f;
+  background: rgba(255, 255, 255, 0.62);
+  font-size: 1.75rem;
+  font-weight: 800;
+  box-shadow: 0 3px 0 rgba(89, 45, 13, 0.12);
+}
+
+.garden-zone__header h2 {
+  margin: 0;
+  color: #69300e;
+  font-family: ''Neucha'', ''Segoe Print'', cursive;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.garden-zone__header p {
+  margin: 4px 0 0;
+  color: #795335;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.garden-zone__count {
+  padding: 7px 11px;
+  border: 1px solid rgba(99, 59, 29, 0.15);
+  border-radius: 999px;
+  color: #72421e;
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.garden-zone__scene {
+  position: relative;
+  min-height: 208px;
+  overflow: hidden;
+}
+
+.garden-zone--indoor .garden-zone__scene {
+  background-color: #f8edd8;
+  background-image:
+    linear-gradient(90deg, rgba(149, 103, 61, 0.065) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.3), rgba(242, 221, 187, 0.3));
+  background-size: 30px 100%, 100% 100%;
+}
+
+.garden-zone--outdoor .garden-zone__scene {
+  background: linear-gradient(#f5f9dd 0 60%, #d4e9ac 100%);
+}
+
+.garden-zone__decor {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.room-window {
+  position: absolute;
+  top: 22px;
+  right: 34px;
+  width: 110px;
+  height: 90px;
+  border: 8px solid #b77b45;
+  border-radius: 9px;
+  background: linear-gradient(#d8f0ec, #f8edbd);
+  box-shadow: 0 5px 0 rgba(91, 49, 20, 0.12);
+}
+
+.room-window::before,
+.room-window::after {
+  position: absolute;
+  content: '''';
+  background: #b77b45;
+}
+
+.room-window::before {
+  top: 0;
+  bottom: 0;
+  left: 46px;
+  width: 6px;
+}
+
+.room-window::after {
+  top: 36px;
+  right: 0;
+  left: 0;
+  height: 6px;
+}
+
+.room-window i {
+  position: absolute;
+  top: 11px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 247, 187, 0.8);
+  box-shadow: 0 0 12px 5px rgba(255, 238, 143, 0.28);
+}
+
+.room-window i:first-child { left: 18px; }
+.room-window i:last-child { right: 15px; top: 57px; }
+
+.room-frame {
+  position: absolute;
+  top: 30px;
+  left: 28px;
+  width: 46px;
+  height: 57px;
+  border: 5px solid #bd8551;
+  border-radius: 4px;
+  background: #fff5db;
+  box-shadow: inset 0 0 0 5px #eed1a8;
+  transform: rotate(-3deg);
+}
+
+.garden-cloud {
+  position: absolute;
+  width: 58px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.garden-cloud::before,
+.garden-cloud::after {
+  position: absolute;
+  bottom: 0;
+  content: '''';
+  border-radius: 50%;
+  background: inherit;
+}
+
+.garden-cloud::before { left: 9px; width: 26px; height: 26px; }
+.garden-cloud::after { right: 8px; width: 34px; height: 34px; }
+.garden-cloud--one { top: 29px; left: 44px; }
+.garden-cloud--two { top: 57px; right: 54px; transform: scale(0.72); opacity: 0.72; }
+
+.garden-hill {
+  position: absolute;
+  bottom: -90px;
+  border-radius: 50%;
+  background: rgba(106, 161, 75, 0.18);
+}
+
+.garden-hill--one { left: -70px; width: 440px; height: 170px; }
+.garden-hill--two { right: -90px; width: 520px; height: 190px; background: rgba(133, 172, 79, 0.16); }
+
+.zone-shelves {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: min(900px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 20px 0 30px;
+  gap: 10px;
+}
+
+.zone-shelves .shelf {
+  height: 175px;
+}
+
+.zone-shelves .shelf__stage {
+  right: 28px;
+  left: 28px;
+  height: 138px;
+}
+
+.zone-shelves .shelf__board {
+  right: 6px;
+  left: 6px;
+}
+
+.plant-pot {
+  flex-basis: 118px;
+  width: 118px;
+}
+
+.plant-pot__container {
+  width: 112px;
+  height: 54px;
+}
+
+.plant-pot__label,
+.plant-pot__label.is-small,
+.plant-pot__label.is-tiny {
+  justify-content: center;
+  width: 101px;
+  max-width: none;
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+.plant-pot__label {
+  font-size: 0.68rem;
+}
+
+.plant-pot__label.is-small {
+  font-size: 0.59rem;
+  letter-spacing: -0.02em;
+}
+
+.plant-pot__label.is-tiny {
+  font-size: 0.52rem;
+  letter-spacing: -0.035em;
+}
+
+.plant-pot__name {
+  flex: 0 0 auto;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.plant-pot__shadow {
+  width: 92px;
+}
+
+.garden-app[data-theme=dark] .garden-zone {
+  border-color: rgba(190, 162, 114, 0.19);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.52);
+}
+
+.garden-app[data-theme=dark] .garden-zone--indoor .garden-zone__header {
+  background: linear-gradient(100deg, #3e2b20, #28251e);
+}
+
+.garden-app[data-theme=dark] .garden-zone--outdoor .garden-zone__header {
+  background: linear-gradient(100deg, #283322, #20241d);
+}
+
+.garden-app[data-theme=dark] .garden-zone__header {
+  border-bottom-color: rgba(218, 196, 153, 0.13);
+}
+
+.garden-app[data-theme=dark] .garden-zone__icon,
+.garden-app[data-theme=dark] .garden-zone__count {
+  border-color: rgba(226, 206, 166, 0.13);
+  color: #e4c995;
+  background: rgba(18, 18, 15, 0.48);
+}
+
+.garden-app[data-theme=dark] .garden-zone__header h2 { color: #ebd3a8; }
+.garden-app[data-theme=dark] .garden-zone__header p { color: #b7aa92; }
+
+.garden-app[data-theme=dark] .garden-zone--indoor .garden-zone__scene {
+  background-color: #211e1a;
+  background-image:
+    linear-gradient(90deg, rgba(210, 180, 135, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(45, 39, 32, 0.2), rgba(22, 21, 18, 0.35));
+}
+
+.garden-app[data-theme=dark] .garden-zone--outdoor .garden-zone__scene {
+  background: linear-gradient(#181b16 0 60%, #20291b 100%);
+}
+
+.garden-app[data-theme=dark] .room-window {
+  border-color: #70482b;
+  background: linear-gradient(#292d26, #39331f);
+}
+
+.garden-app[data-theme=dark] .room-window::before,
+.garden-app[data-theme=dark] .room-window::after { background: #70482b; }
+.garden-app[data-theme=dark] .room-frame { border-color: #725035; background: #2b261e; box-shadow: inset 0 0 0 5px #443526; }
+.garden-app[data-theme=dark] .garden-cloud { background: rgba(238, 225, 186, 0.12); }
+.garden-app[data-theme=dark] .garden-hill--one { background: rgba(72, 105, 54, 0.22); }
+.garden-app[data-theme=dark] .garden-hill--two { background: rgba(91, 110, 57, 0.17); }
+
+@media (max-width: 700px) {
+  .garden-zones {
+    width: calc(100vw - 18px);
+    gap: 22px;
+  }
+
+  .garden-zone {
+    border-width: 2px;
+    border-radius: 18px;
+  }
+
+  .garden-zone__header {
+    grid-template-columns: auto 1fr;
+    min-height: 72px;
+    padding: 11px 13px;
+  }
+
+  .garden-zone__header h2 { font-size: 1.35rem; }
+  .garden-zone__header p { font-size: 0.68rem; }
+  .garden-zone__count { display: none; }
+  .garden-zone__icon { width: 40px; height: 40px; font-size: 1.45rem; }
+  .garden-zone__scene {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-color: rgba(128, 87, 49, 0.55) transparent;
+    scrollbar-width: thin;
+  }
+
+  .zone-shelves {
+    width: 540px;
+    min-width: 540px;
+    margin: 0;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  .zone-shelves .shelf { height: 159px; }
+  .zone-shelves .shelf__stage { right: 1px; left: 1px; height: 123px; gap: 0; }
+  .zone-shelves .shelf__board { right: 1px; left: 1px; }
+
+  .plant-pot {
+    flex-basis: 108px;
+    width: 108px;
+  }
+
+  .plant-pot__plant {
+    width: 76px;
+    height: 78px;
+  }
+
+  .plant-pot__container {
+    width: 104px;
+    height: 50px;
+  }
+
+  .plant-pot__label,
+  .plant-pot__label.is-small,
+  .plant-pot__label.is-tiny {
+    width: 94px;
+    gap: 2px;
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+
+  .plant-pot__label { font-size: 0.64rem; }
+  .plant-pot__label.is-small { font-size: 0.56rem; }
+  .plant-pot__label.is-tiny { font-size: 0.49rem; letter-spacing: -0.035em; }
+  .plant-pot__shadow { width: 84px; }
+  .add-slot { flex-basis: 90px; width: 90px; }
+  .room-window { right: 16px; transform: scale(0.78); transform-origin: top right; }
+  .room-frame { left: 14px; transform: rotate(-3deg) scale(0.8); transform-origin: top left; }
 }

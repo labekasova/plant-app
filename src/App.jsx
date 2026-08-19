@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Modal } from './components/Modal.jsx'
+import { GardenZone } from './components/GardenZone.jsx'
 import { PlantCare } from './components/PlantCare.jsx'
 import { PlantForm } from './components/PlantForm.jsx'
-import { Shelf } from './components/Shelf.jsx'
 import { translations } from './data/translations.js'
 import { useLocalStorage } from './hooks/useLocalStorage.js'
 
-const SHELVES = [0, 1, 2]
 const GRASS = [
   [42, -8], [31, 16], [47, -14], [29, 12], [38, 8], [52, -4], [44, 7],
   [50, -7], [35, 14], [29, -12], [43, 9], [37, -6], [31, 3], [49, 13],
@@ -26,7 +25,7 @@ function App() {
   const [plants, setPlants] = useLocalStorage('plant-app:v0.1:plants', [])
   const [language, setLanguage] = useLocalStorage('plant-app:v0.1:language', 'ru')
   const [theme, setTheme] = useLocalStorage('plant-app:v0.2:theme', 'light')
-  const [selectedShelf, setSelectedShelf] = useState(null)
+  const [addLocation, setAddLocation] = useState(null)
   const [selectedPlantId, setSelectedPlantId] = useState(null)
   const [now, setNow] = useState(Date.now())
 
@@ -54,14 +53,17 @@ function App() {
   }, [])
 
   const addPlant = (form) => {
+    const plantsInLocation = plants.filter(
+      (plant) => (plant.location ?? 'indoor') === form.location,
+    ).length
     const plant = {
       ...form,
       id: crypto.randomUUID(),
-      shelfIndex: selectedShelf,
+      shelfIndex: Math.floor(plantsInLocation / 4),
       lastWatered: Date.now(),
     }
     setPlants((current) => [...current, plant])
-    setSelectedShelf(null)
+    setAddLocation(null)
   }
 
   const updatePlant = (id, changes) => {
@@ -133,18 +135,20 @@ function App() {
 
       <header className="garden-header">
         <h1>{t('title')}</h1>
-        <p>{t('subtitle')}</p>
       </header>
 
-      <div className="shelves">
-        {SHELVES.map((shelfIndex) => (
-          <Shelf
-            key={shelfIndex}
-            plants={plants.filter((plant) => plant.shelfIndex === shelfIndex)}
+      <div className="garden-zones">
+        {['indoor', 'outdoor'].map((location) => (
+          <GardenZone
+            key={location}
+            location={location}
+            plants={plants.filter(
+              (plant) => (plant.location ?? 'indoor') === location,
+            )}
             now={now}
-            onAdd={() => setSelectedShelf(shelfIndex)}
+            t={t}
+            onAdd={setAddLocation}
             onPlantClick={setSelectedPlantId}
-            addLabel={t('emptySlot')}
           />
         ))}
       </div>
@@ -155,9 +159,9 @@ function App() {
         ))}
       </div>
 
-      {selectedShelf !== null && (
-        <Modal title={t('addPlantTitle')} onClose={() => setSelectedShelf(null)}>
-          <PlantForm t={t} onSubmit={addPlant} />
+      {addLocation !== null && (
+        <Modal title={t('addPlantTitle')} onClose={() => setAddLocation(null)}>
+          <PlantForm t={t} initialLocation={addLocation} onSubmit={addPlant} />
         </Modal>
       )}
 
