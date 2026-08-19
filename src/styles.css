@@ -49,9 +49,33 @@ button {
   background-image: radial-gradient(circle, #62aaf7 1.25px, transparent 1.4px);
   background-position: 2px 2px;
   background-size: 20px 20px;
+  transition: color 450ms ease, background-color 450ms ease;
 }
 
-.sun {
+.night-sky {
+  position: absolute;
+  z-index: -2;
+  inset: 0 0 auto;
+  height: min(70vh, 720px);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.night-sky i {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff1ad;
+  box-shadow: 0 0 7px 2px rgba(255, 232, 148, 0.45);
+  animation: star-twinkle 3.2s ease-in-out infinite;
+}
+
+@keyframes star-twinkle {
+  50% { opacity: 0.28; transform: scale(0.65); }
+}
+
+.celestial-body {
   position: absolute;
   z-index: -1;
   top: 20px;
@@ -61,19 +85,29 @@ button {
   border-radius: 50%;
   background: rgba(255, 243, 118, 0.5);
   box-shadow: 0 0 44px 26px rgba(255, 233, 92, 0.26);
-  filter: blur(1px);
-  animation: sun-glow 3.6s ease-in-out infinite;
+  animation: orb-glow 3.6s ease-in-out infinite;
+  transition: background 450ms ease, box-shadow 450ms ease, transform 450ms ease;
 }
 
-@keyframes sun-glow {
+.celestial-body i {
+  display: none;
+}
+
+@keyframes orb-glow {
   50% { opacity: 0.72; transform: scale(1.05); }
 }
 
-.language-switch {
+.top-controls {
   position: absolute;
   z-index: 10;
   top: 23px;
   left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.language-switch {
   display: flex;
   gap: 5px;
   padding: 3px;
@@ -82,6 +116,43 @@ button {
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 3px 10px rgba(35, 83, 52, 0.07);
   backdrop-filter: blur(8px);
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
+  color: #5c3b12;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 3px 10px rgba(35, 83, 52, 0.07);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  color: #2f6b3f;
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid rgba(34, 197, 94, 0.26);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .language-switch button {
@@ -348,9 +419,26 @@ button {
   font-weight: 800;
 }
 
-.plant-pot__label span:last-child {
+.plant-pot__label.is-small {
+  max-width: 94%;
+  gap: 3px;
+  padding-right: 4px;
+  padding-left: 4px;
+  font-size: 0.55rem;
+  letter-spacing: -0.015em;
+}
+
+.plant-pot__label.is-tiny {
+  max-width: 96%;
+  gap: 2px;
+  padding-right: 3px;
+  padding-left: 3px;
+  font-size: 0.46rem;
+  letter-spacing: -0.025em;
+}
+
+.plant-pot__name {
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -742,14 +830,291 @@ button {
 .plant-care__status strong.is-happy { color: #15964a; }
 .plant-care__status small { color: #7b5e47; font-weight: 700; }
 
+.garden-app[data-theme=dark] {
+  color: #f1e8d7;
+  background-color: #11120f;
+  background-image: radial-gradient(circle, #474a3c 1.1px, transparent 1.25px);
+}
+
+.garden-app[data-theme=dark] .night-sky {
+  opacity: 1;
+}
+
+.garden-app[data-theme=dark] .celestial-body {
+  background: radial-gradient(circle at 34% 28%, #fffbd8 0 18%, #f4e7b0 56%, #cbb97b 100%);
+  box-shadow: 0 0 34px 13px rgba(255, 232, 157, 0.18), 0 0 80px 31px rgba(255, 225, 137, 0.08);
+  animation-duration: 5.2s;
+}
+
+.garden-app[data-theme=dark] .celestial-body i {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: rgba(143, 126, 79, 0.18);
+  box-shadow: inset 1px 1px 2px rgba(96, 79, 42, 0.12);
+}
+
+.garden-app[data-theme=dark] .celestial-body i:nth-child(1) {
+  top: 18px;
+  left: 19px;
+  width: 17px;
+  height: 17px;
+}
+
+.garden-app[data-theme=dark] .celestial-body i:nth-child(2) {
+  right: 17px;
+  bottom: 20px;
+  width: 12px;
+  height: 12px;
+}
+
+.garden-app[data-theme=dark] .celestial-body i:nth-child(3) {
+  top: 23px;
+  right: 20px;
+  width: 7px;
+  height: 7px;
+}
+
+.garden-app[data-theme=dark] .language-switch,
+.garden-app[data-theme=dark] .theme-toggle {
+  border-color: rgba(218, 205, 169, 0.16);
+  background: rgba(30, 31, 26, 0.84);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.garden-app[data-theme=dark] .language-switch button {
+  color: #d8d0bd;
+}
+
+.garden-app[data-theme=dark] .language-switch button:hover {
+  background: rgba(164, 177, 117, 0.12);
+}
+
+.garden-app[data-theme=dark] .language-switch button.is-active {
+  color: #fff8e7;
+  background: #607d42;
+  box-shadow: 0 2px 0 #3e572a;
+}
+
+.garden-app[data-theme=dark] .theme-toggle {
+  color: #f6e6a6;
+}
+
+.garden-app[data-theme=dark] .theme-toggle:hover {
+  color: #fff4bd;
+  background: rgba(45, 45, 36, 0.96);
+}
+
+.garden-app[data-theme=dark] .garden-header h1 {
+  color: #f1ead9;
+  -webkit-text-stroke-color: #526648;
+  text-shadow: 0 3px 0 rgba(17, 24, 13, 0.95), 0 7px 10px rgba(0, 0, 0, 0.55);
+}
+
+.garden-app[data-theme=dark] .garden-header p {
+  border-color: rgba(217, 207, 170, 0.1);
+  color: #c7cfaa;
+  background: rgba(28, 30, 24, 0.76);
+}
+
+.garden-app[data-theme=dark] .shelf__top {
+  background-color: #4b200c;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 223, 174, 0.025) 0,
+    rgba(255, 223, 174, 0.025) 10px,
+    rgba(10, 5, 1, 0.2) 10px,
+    rgba(10, 5, 1, 0.2) 20px
+  );
+  box-shadow: inset 0 2px 1px rgba(224, 169, 102, 0.08);
+}
+
+.garden-app[data-theme=dark] .shelf__edge {
+  border-bottom-color: #271005;
+  background: linear-gradient(#61270e, #3e1808);
+}
+
+.garden-app[data-theme=dark] .shelf__edge i {
+  background: #1d0b03;
+}
+
+.garden-app[data-theme=dark] .shelf__leg {
+  background: linear-gradient(90deg, #57220c, #321206);
+}
+
+.garden-app[data-theme=dark] .add-slot {
+  border-color: rgba(203, 184, 145, 0.32);
+  color: rgba(230, 213, 175, 0.42);
+  background: rgba(31, 31, 26, 0.62);
+}
+
+.garden-app[data-theme=dark] .add-slot:hover,
+.garden-app[data-theme=dark] .add-slot:focus-visible {
+  border-color: rgba(239, 218, 170, 0.7);
+  color: rgba(255, 234, 190, 0.82);
+  background: rgba(56, 52, 40, 0.82);
+}
+
+.garden-app[data-theme=dark] .plant-pot__container {
+  border-top-color: #55220d;
+  background: linear-gradient(100deg, #8b3d19, #5e260e 72%);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.45);
+}
+
+.garden-app[data-theme=dark] .plant-pot__shine {
+  background: linear-gradient(115deg, rgba(255, 195, 124, 0.12), transparent 42%, rgba(10, 4, 0, 0.22));
+}
+
+.garden-app[data-theme=dark] .plant-pot__label {
+  border-color: rgba(230, 184, 125, 0.15);
+  color: #fff7e6;
+  background: #2c1409;
+}
+
+.garden-app[data-theme=dark] .plant-pot__shadow {
+  background: rgba(0, 0, 0, 0.62);
+}
+
+.garden-app[data-theme=dark] .water-drop {
+  border-color: #334627;
+  background: #88ad70;
+}
+
+.garden-app[data-theme=dark] .grass i {
+  background: #1f6b43;
+  box-shadow: inset -2px 0 0 rgba(0, 0, 0, 0.18);
+}
+
+.garden-app[data-theme=dark] .modal-overlay {
+  background: rgba(4, 5, 4, 0.78);
+}
+
+.garden-app[data-theme=dark] .modal {
+  border-color: #633416;
+  color: #eee5d2;
+  background: #1b1b17;
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.7);
+}
+
+.garden-app[data-theme=dark] .modal__header {
+  border-bottom-color: #241006;
+  color: #fff0d2;
+  background: linear-gradient(105deg, #613014, #3d1c0b);
+}
+
+.garden-app[data-theme=dark] .modal__close {
+  color: #f7e9cf;
+  background: rgba(12, 7, 3, 0.42);
+}
+
+.garden-app[data-theme=dark] .form-section legend,
+.garden-app[data-theme=dark] .form-field > span {
+  color: #d9bc89;
+}
+
+.garden-app[data-theme=dark] .plant-type-card {
+  color: #e0c89b;
+  background: #292923;
+}
+
+.garden-app[data-theme=dark] .plant-type-card:hover {
+  background: #343228;
+}
+
+.garden-app[data-theme=dark] .plant-type-card.is-selected {
+  border-color: #789b52;
+  color: #eef0d2;
+  background: #303a27;
+  box-shadow: 0 1px 0 #3d5828;
+}
+
+.garden-app[data-theme=dark] .location-option {
+  border-color: #7c6335;
+  color: #dfc690;
+  background: #292923;
+}
+
+.garden-app[data-theme=dark] .location-option--indoor.is-selected {
+  border-color: #789b52;
+  color: #dfeac4;
+  background: #2d3926;
+}
+
+.garden-app[data-theme=dark] .location-option--outdoor.is-selected {
+  border-color: #b28a3d;
+  color: #f0d59c;
+  background: #3b3321;
+}
+
+.garden-app[data-theme=dark] .form-field input,
+.garden-app[data-theme=dark] .form-field textarea {
+  border-color: #7c6335;
+  color: #f1eadc;
+  background: #282821;
+}
+
+.garden-app[data-theme=dark] .form-field input::placeholder,
+.garden-app[data-theme=dark] .form-field textarea::placeholder {
+  color: #817c70;
+}
+
+.garden-app[data-theme=dark] .form-field input:focus,
+.garden-app[data-theme=dark] .form-field textarea:focus {
+  border-color: #86a85e;
+  box-shadow: 0 0 0 3px rgba(134, 168, 94, 0.14);
+}
+
+.garden-app[data-theme=dark] .primary-button {
+  background: #698e47;
+  box-shadow: 0 5px 0 #405d2b;
+}
+
+.garden-app[data-theme=dark] .secondary-button {
+  border-color: #8c713e;
+  color: #f0d8a8;
+  background: #4c4028;
+  box-shadow: 0 3px 0 #2d2517;
+}
+
+.garden-app[data-theme=dark] .water-button {
+  color: #fff8e8;
+  background: #5b7d3f;
+  box-shadow: 0 4px 0 #354e27;
+}
+
+.garden-app[data-theme=dark] .water-button__drop {
+  border-color: #f5ecd7;
+  background: #90b478;
+}
+
+.garden-app[data-theme=dark] .plant-care__status {
+  border-color: #51452f;
+  background: #292923;
+}
+
+.garden-app[data-theme=dark] .plant-care__eyebrow {
+  color: #a69e8c;
+}
+
+.garden-app[data-theme=dark] .plant-care__status strong.is-happy {
+  color: #98bb70;
+}
+
+.garden-app[data-theme=dark] .plant-care__status small {
+  color: #c1b59b;
+}
+
+html[data-theme=dark] ::-webkit-scrollbar-track { background: #1b1b17; }
+html[data-theme=dark] ::-webkit-scrollbar-thumb { border-color: #1b1b17; background: #68533b; }
+
 ::-webkit-scrollbar { width: 9px; }
 ::-webkit-scrollbar-track { background: #f6ead0; }
 ::-webkit-scrollbar-thumb { border: 2px solid #f6ead0; border-radius: 99px; background: #ad754e; }
 
 @media (max-width: 600px) {
   .garden-app { padding-top: 83px; }
-  .sun { top: 70px; right: 15px; width: 66px; height: 66px; }
-  .language-switch { position: fixed; top: 12px; }
+  .celestial-body { top: 70px; right: 15px; width: 66px; height: 66px; }
+  .top-controls { position: fixed; top: 12px; left: 12px; }
   .garden-header h1 { font-size: clamp(2.65rem, 14vw, 3.5rem); }
   .shelves { width: calc(100vw - 22px); margin-top: 24px; gap: 18px; }
   .shelf { height: 150px; }
@@ -758,6 +1123,8 @@ button {
   .plant-pot__plant { width: 62px; height: 72px; }
   .plant-pot__container { width: 61px; height: 45px; }
   .plant-pot__label { gap: 2px; padding: 3px 4px; font-size: 0.58rem; }
+  .plant-pot__label.is-small { font-size: 0.49rem; }
+  .plant-pot__label.is-tiny { font-size: 0.4rem; }
   .add-slot { flex-basis: 60px; width: 60px; height: 57px; }
   .shelf__leg--left { left: 22px; }
   .shelf__leg--right { right: 22px; }
